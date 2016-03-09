@@ -1,0 +1,120 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Experienced programmer and web developer from North Carolina.
+                                      Interested in gaming, cooking, coding, and spending time with family.
+                                      Raising a human child and two adorable mini-dachshunds.">
+    <title>Rainblow, a game by Jay Roberts</title>
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <link rel="stylesheet" href="../css/app.css" />
+    <link rel="stylesheet" href="../foundation-icons/foundation-icons.css" />
+    <link rel="stylesheet" href="../bower_components/fancybox/source/jquery.fancybox.css" />
+    <link href='http://fonts.googleapis.com/css?family=Nixie+One%7CNunito:300' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+
+  <div id="header-wrapper" class="top">
+    <header>
+      <nav id="main-nav">
+        <ul>
+          <li class=""><a href="../index.html">Home</a></li>
+          <li class="active"><a href="../projects.html">Projects</a></li>
+          <li class=""><a href="../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <h2><a title="Home" href="../index.html">Jay Roberts <span>// gloryfish</span></a></h2>
+    </header>
+  </div>
+
+  <div id="main-wrapper">
+
+    <div id="main">
+
+
+  <div class="project content current">
+
+    <h1>Rainblow</h1>
+
+    <div class="project-tags">
+      <span class="type">Game</span>
+      <span class="date">October 2013</span>
+    </div>
+
+    <h2>A 48 hour jam game</h2>
+
+    <p>
+      In October of 2013 the sixth Bacon Game Jam
+      was <a href="https://www.reddit.com/r/BaconGameJam/comments/1nlyov/bacongamejam_06_on_20131025_2200_utc_48_hours/">announced</a>. I had
+      spent a lot of time in the previous two years working on a few different ideas for a roguelike sort of game. I hadn't actually <em>finished</em>
+      a game after completing my unreleased Dota 2 demake "Divine Rapier" almost a year earlier. If I wanted to call myself
+      a game developer I figured I damn well better develop a game every now and then. So I blocked out a weekend and registered.
+    </p>
+
+    <p>
+      The chosen theme was "rainbows". I had a nice complete set of isometric zombie sprites. Why not have the player destroy them with a rainbow?
+      My approach maybe wasn't the best use of the theme but it certainly wasn't the worst. I make no apologies.
+    </p>
+
+    <div class="photos halves">
+      <div class="data-image" data-image-group="gameplay" data-image-url="http://gloryfish.s3.amazonaws.com/games/rainblow/rainblow-gameplay.png"></div>
+      <div class="data-image" data-image-group="gameplay" data-image-url="http://gloryfish.s3.amazonaws.com/games/rainblow/rainblow-gameplay-2.png"></div>
+    </div>
+
+    <h2>Making the game</h2>
+
+    <p>
+      A few weeks before the jam I spent an evening porting a python implementation of the
+      <a href="http://en.wikipedia.org/wiki/Boids">boids flocking algorithm</a> to
+      <a href="https://bitbucket.org/GloryFish/boids-love2d/src/e948e5610034fd68237147f87d6693569661540d/loveapp/boid.lua?at=master">Lua/LÖVE</a>. This proved to
+      be a good use of time because I was able to essentially drop in the boids code unmodified and use it to control a flock of zombies. I added a small tweak
+      to allow the cohesion factor to be adjusted on the fly which allowed the zombies to scatter when the player attacked. This had a big impact on the
+      gameplay making it a real challenge to hit more than one or two at a time.
+    </p>
+
+
+    <p>
+      I was working solo on this game so I cribbed most of my art from <a href="http://opengameart.org/">OpenGameArt.org</a>. I really missed working with
+      <a href="http://paulbredenberg.com/">Paul</a> on this game but was proud that I brought it all together. In the end, <a href="https://bacongamejam.org/jams/bacongamejam-06/games/">I placed 4th out of 97</a>
+      based on participant ratings of all the entries. I got a lot of great <a href="https://bacongamejam.org/jams/bacongamejam-06/116/">feedback</a> on the game.
+    </p>
+
+    <p>Here's a complete timelapse of the game creation process:</p>
+
+    <div class="video-container vimeo">
+      <iframe src="https://player.vimeo.com/video/77887865" width="800" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/77887865">The Making of Rainblow</a> from <a href="https://vimeo.com/gloryfish">Jay Roberts</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+    </div>
+
+    <h2>Game Notes</h2>
+
+    <ul>
+      <li>Made in 48 hours</li>
+      <li>Lua / LOVE</li>
+      <li>Boids implementation</li>
+      <li>Tiled maps</li>
+    </ul>
+
+    <h2>Download</h2>
+
+    <ul>
+      <li><a href="http://gloryfish.s3.amazonaws.com/games/rainblow/Rainblow.app.zip">Mac</a></li>
+      <li><a href="http://gloryfish.s3.amazonaws.com/games/rainblow/rainblow-win.zip">Windows</a></li>
+      <li><a href="http://gloryfish.s3.amazonaws.com/games/rainblow/rainblow.love">.love</a></li>
+      <li><a href="https://bitbucket.org/GloryFish/rainblow">Source</a></li>
+    </ul>
+
+  </div>
+
+
+      </div>
+
+    </div>
+
+    <script src="../js/app.min.js"></script>
+  </body>
+</html>
+

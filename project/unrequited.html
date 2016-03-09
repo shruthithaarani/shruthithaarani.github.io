@@ -1,0 +1,177 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Experienced programmer and web developer from North Carolina.
+                                      Interested in gaming, cooking, coding, and spending time with family.
+                                      Raising a human child and two adorable mini-dachshunds.">
+    <title>Unrequited, a game by Jay Roberts</title>
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <link rel="stylesheet" href="../css/app.css" />
+    <link rel="stylesheet" href="../foundation-icons/foundation-icons.css" />
+    <link rel="stylesheet" href="../bower_components/fancybox/source/jquery.fancybox.css" />
+    <link href='http://fonts.googleapis.com/css?family=Nixie+One%7CNunito:300' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+
+  <div id="header-wrapper" class="top">
+    <header>
+      <nav id="main-nav">
+        <ul>
+          <li class=""><a href="../index.html">Home</a></li>
+          <li class="active"><a href="../projects.html">Projects</a></li>
+          <li class=""><a href="../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <h2><a title="Home" href="../index.html">Jay Roberts <span>// gloryfish</span></a></h2>
+    </header>
+  </div>
+
+  <div id="main-wrapper">
+
+    <div id="main">
+
+
+  <div class="project content current">
+
+    <h1 id="unrequited">Unrequited</h1>
+
+    <div class="project-tags">
+      <span class="type">Game</span>
+      <span class="date">January 2011</span>
+    </div>
+
+    <h2 id="learningtofinish">Learning to finish</h2>
+
+    <p>This simple little game about a bird that collects coins and runs away from an amorous ladybird
+       represents a big milestone in my growth as a game developer. Before this, I had never truly finished a game.</p>
+
+    <div class="photos thirds">
+      <div class="data-image" data-image-group="gameplay" data-image-url="http://gloryfish.s3.amazonaws.com/games/unrequited/unrequited-title.png"></div>
+      <div class="data-image" data-image-group="gameplay" data-image-url="http://gloryfish.s3.amazonaws.com/games/unrequited/unrequited-instructions.png"></div>
+      <div class="data-image" data-image-group="gameplay" data-image-url="http://gloryfish.s3.amazonaws.com/games/unrequited/unrequited-gameplay.png"></div>
+    </div>
+
+    <p>I was fresh off of failing to complete the
+       <a href="https://www.reddit.com/r/RedditGameJam/comments/ejrzp/reddit_game_jam_04_has_started_theme_metamorphosis/">fourth
+       Reddit Game Jam</a>. I had bitten off way too big a chunk of gameplay for a 48-hour jam and I didn't even come close
+       to getting the basics in, let alone a complete project. Particularly, I failed to predict just how much complexity there is
+       in robust tile-based collisions for a 2D character.</p>
+
+    <p>I spent several evenings after that digging into a
+    <a href="http://koboldkit.com/2013/08/indie-roll-guides-making-2d-platformer-games/">bunch</a>
+    <a href="http://www.metanetsoftware.com/technique/tutorialA.html">of</a>
+    <a href="http://info.sonicretro.org/SPG:Solid_Tiles">articles</a> about handling 2D collisions. This resulted in a small
+    <a href="https://github.com/GloryFish/love-platformer">test project</a> with a little ninja that could run, jump, and even
+    wall-slide.</p>
+
+    <div class="photos">
+      <div class="data-image" data-image-group="gameplay" data-image-url="http://gloryfish.s3.amazonaws.com/games/unrequited/unrequited-ninja.png"></div>
+    </div>
+
+    <p>When <a href="https://www.reddit.com/r/RedditGameJam/comments/eqn6g/reddit_game_jam_05_rules/">Reddit Game Jam 05</a> was
+    announced, I was ready.</p>
+
+    <h2 id="dayone">Day one</h2>
+
+    <p>The theme for the jam was "Love". I wanted to have some form of AI controlled enemies chasing the player around
+    a working tile-collision level. I started by porting over my ninja demo and upgrading the tile map format to support more
+    advanced level layouts and enemy spawns.</p>
+
+    <p>Most of the art was taken and remixed from TigSource's Assemblee art jam. Once I created
+    <a href="https://github.com/GloryFish/RedditGameJam-05/blob/3a34ef3aaa3dc41b12aba3667b9dc0633b046123/resources/images/spritesheet.png">
+    the ladybird</a> the full theme of the game became clear. The player would run around collecting little coins while an
+    aggressively amorous AI would chase them around. I would need to make it so an enemy could follow the player around my
+    tilemap level.</p>
+
+    <p>I had never created any kind of working AI behavior before. I started with a very simple left/right walk approach to
+    test the character animation but it was obvious that something more intelligent would be required to let an enemy follow
+    the player around platforms and not get stuck. I worried that I had again bitten off too much and tried to think of ways
+    to simplify the approach.</p>
+
+    <p>That night, my brain kept working and I came to the realization that the follow behavior was really a pathfinding problem. </p>
+
+    <h2 id="daytwo">Day two</h2>
+
+    <p>I woke up the next morning and looked for an A* example I could understand. I found a very straightforward
+    <a href="http://www.pygame.org/project-AStar-195-.html">python implementation</a> and ported it line-by-line to Lua.
+    This was a great way to learn pathfinding because I had real problem to solve that needed a concrete implementation.</p>
+
+    <p>I added ladders to the map because I didn't know how to get the ladybird to handle pathing across a gap between
+    platforms with a jump animation (more on this later). I could now generate a path between any walkable point in the level
+    and the layer's location. I set the AI code t constantly generate a path from the ladybird to the player and have
+    the ladybird follow it. It worked! The ladybird could now chase the player all over the map.</p>
+
+    <p>Now, my A* code had some performance problems. Specifically Lua doesn't have a native
+    <a href="http://en.wikipedia.org/wiki/Min-max_heap">min-heap</a> implementation and I didn't know how to write one. This
+    meant that I could only run the path search every few seconds. The ladybird would follow her path until a new one was
+    generated from the updated player position. Sometimes she might reach the end of her path and not reach the player
+    (this usually happened when the player jumped off of a ledge with her nearby) . She would just stand there for a few
+    seconds until the pathfinder generated a new path.</p>
+
+    <p>I wrapped up the day by adding a little frustration animation for the ladybird whenever this occurred. This was huge.
+    Instantly the ladybird turned from a palette-swapped mechanical AI into a character with hopes and dreams.</p>
+
+    <p>I slept well that night.</p>
+
+    <h2 id="daythree">Day three</h2>
+
+    <p>The final day was spent adding in all of the small systems required to turn the AI demo into a real game. I hooked up
+    the coins, sound effects, a health meter. The best change was to increase the ladybird's speed any time she played her
+    frustrated animation and resetting it when she caught them. This created a nice increasing tension/release loop.</p>
+
+    <p>I spent a bit of time adding music and sound effects and polishing up the menus.</p>
+
+    <p>By the time I was done I had a killer headache but I had done it. I finished a game!</p>
+
+    <div class="video-container vimeo">
+      <iframe src="https://player.vimeo.com/video/18601566" width="800" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/18601566">The Making of Unrequited</a> from <a href="https://vimeo.com/gloryfish">Jay Roberts</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+    </div>
+
+    <h2 id="lessonslearned">Lessons learned</h2>
+
+    <p>This ended up being a pivotal project for my hobby game development career. I've used code from this game in every
+    Lua-based game I've worked on since. I learned to <strong>keep my code clean and decoupled</strong>.</p>
+
+    <p><strong>I should have playtested the game.</strong> A common problem just about everyone has is that they expect to be able to climb
+    the ladders and can't. This is universally confusing. If I were to redo the game I would make them climbable and let
+    players figure out on their own that it isn't very efficient. Or, I might change the ladybird to a different climbing
+    sort of animal to make it clear the flap-jumping is for birds and ladder climbing is for their enemy.</p>
+
+    <p>Later on, I implemented a true min heap for my A* code which allowed it to get a fresh path every frame. I tried running
+    the ladybird with perfect pathfinding and it completely broke the gameplay. It's no fun at all when you can't trick her.
+    <strong>Implementation flaws can reveal gameplay benefits.</strong></p>
+
+    <h2 id="gamenotes">Game Notes</h2>
+
+    <ul>
+      <li>Made in 48 hours</li>
+      <li>Lua / LÖVE</li>
+      <li>First A* implementation</li>
+      <li>Custom spritesheet animation system for LÖVE</li>
+    </ul>
+
+    <h2>Download</h2>
+
+    <ul>
+      <li><a href="http://gloryfish.s3.amazonaws.com/games/Unrequited.zip">Mac</a></li>
+      <li><a href="http://gloryfish.s3.amazonaws.com/games/unrequited_win.zip">Windows</a></li>
+      <li><a href="http://gloryfish.s3.amazonaws.com/games/RedditGameJam-05.love">.love</a></li>
+      <li><a href="https://github.com/GloryFish/RedditGameJam-05">Source</a></li>
+    </ul>
+
+  </div>
+
+
+      </div>
+
+    </div>
+
+    <script src="../js/app.min.js"></script>
+  </body>
+</html>
+
